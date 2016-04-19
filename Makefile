@@ -1,22 +1,16 @@
 #Creates & zips word count files
+COUNT_SCRIPT = wordcount.py
+dats = [isles.dat abyss.dat last.dat]
 
-analysis.zip : isles.dat abyss.dat last.dat
+analysis.zip : isles.dat abyss.dat last.dat $(COUNT_SCRIPT)
 	zip $@ $^
 
 .PHONY : dats
 dats : isles.dat abyss.dat last.dat
 
 # count words
-isles.dat : books/isles.txt wordcount.py
-	python wordcount.py $< $@
-	
-abyss.dat : books/abyss.txt wordcount.py
-	python wordcount.py $< $@
-
-last.dat : books/last.txt wordcount.py
-	python wordcount.py $< $@
-
-	
+%.dat : books/%.txt $(COUNT_SCRIPT)
+	python wordcount.py $< $*.dat
 
 .PHONY : clean
 clean : 
