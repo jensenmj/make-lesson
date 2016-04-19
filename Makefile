@@ -5,7 +5,7 @@ TXT_FILES = $(wildcard books/*.txt)
 DAT_FILES=$(patsubst books/%.txt, %.dat, $(TXT_FILES))
 PNG_FILES=$(patsubst books/%.txt, %.png, $(TXT_FILES))
 
-analysis.zip : $(DAT_FILES) $(PNG_FILES) $(COUNT_SCRIPT)
+analysis.zip : $(DAT_FILES) $(PNG_FILES) $(COUNT_SCRIPT) $(PLOT_SCRIPT)
 	zip $@ $^
 
 .PHONY : dats
@@ -15,6 +15,7 @@ dats : $(DAT_FILES)
 variables:
 	@echo TXT_FILES: $(TXT_FILES)
 	@echo DAT_FILES: $(DAT_FILES)
+	@echo PNG_FILES: $(PNG_FILES)
 
 # count words & plot them
 %.dat : books/%.txt $(COUNT_SCRIPT)
